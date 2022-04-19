@@ -11,6 +11,7 @@ if (!fs.existsSync(".env")) {
 dotenv.config({ path: ".env" });
 
 const prod = process.env.NODE_ENV === "production";
+
 export const MONGODB_URI = prod ? process.env["MONGODB_URI"] : process.env["MONGODB_URI_LOCAL"];
 
 if (!MONGODB_URI) {    

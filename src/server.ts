@@ -1,22 +1,26 @@
 import errorHandler from "errorhandler";
+import mongoose from "mongoose";
+import bluebird from "bluebird";
 
+import { MONGODB_URI } from "./utils/secrets";
 import app from "./app";
 
-/**
- * Error Handler. Provides full stack - remove for production
- */
 app.use(errorHandler());
 
-/**
- * Start Express server.
- */
-const server = app.listen(app.get("port"), () => {
-    console.log(
-        "  App is running at http://localhost:%d in %s mode",
-        app.get("port"),
-        app.get("env")
-    );
-    console.log("  Press CTRL-C to stop\n");
-});
+const startServer = () => {
+    app.listen(app.get("port"), () => {
+        console.log(`App is running at http://localhost:${app.get("port")} in ${app.get("env")} mode`);
+        console.log("Press CTRL-C to stop\n");
+    });
+}
 
-export default server;
+console.log('connecting to mongodb instance');
+mongoose.Promise = bluebird;
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true } )
+.then(() => { 
+    console.log("connection successfull to mongo server");
+    startServer(); 
+}).catch(err => {
+    console.log(`MongoDB connection error. Please make sure MongoDB is running. ${err}`);
+    process.exit();
+});
