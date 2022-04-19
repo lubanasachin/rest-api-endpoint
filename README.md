@@ -10,8 +10,8 @@ The main purpose of this repository is to show a working Node.js API Server with
 - [Deploying the app](#deploying-the-app)
 - [Project Structure](#project-structure)
 - [Building the project](#running-the-build)
-- [Testing](#running-test)
-- [ESLint](#running-lint)
+- [Testing](#running-tests)
+- [ESLint](#running-eslint)
 - [Dependencies](#dependencies)
 
 # Getting started
@@ -50,6 +50,7 @@ The full folder structure of this app is explained below:
 | **node_modules**         | Contains all npm dependencies                                                                 |
 | **src**                  | Contains source code that will be compiled to the dist dir                                    |
 | **src/controllers**      | Defines functions that respond to the http requests                                           |
+| **src/services**         | Defines service implementation to read from repository (mongodb collection)                   |
 | **src/models**           | Defines Mongoose schemas that will be used in storing and retrieving data from MongoDB        |
 | **src**/server.ts        | Entry point to your express app                                                               |
 | **test**                 | Contains tests                                                                                |
