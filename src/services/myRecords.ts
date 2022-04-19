@@ -1,5 +1,5 @@
 import { MyRecords } from "../models/myRecords";
-import { InputFilters, MyRecord } from '../types';
+import { InputFilters, MyRecord } from "../types";
 
 export const findMatchingRecords = async (input: InputFilters): Promise<Array<MyRecord>> => {
     const aggregate = MyRecords.aggregate([
@@ -29,4 +29,4 @@ export const findMatchingRecords = async (input: InputFilters): Promise<Array<My
 
     const data = await aggregate.exec();
     return data;
-}
+};

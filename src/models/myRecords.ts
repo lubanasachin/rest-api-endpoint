@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-import { MyRecord } from '../types';
+import { MyRecord } from "../types";
 
 export type MyRecordDocument = mongoose.Document & MyRecord;
 

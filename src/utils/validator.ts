@@ -1,4 +1,4 @@
-import  validator from 'validator';
+import  validator from "validator";
 
 const validateInputCounts = (minCount: unknown, maxCount: unknown): boolean => {
     if(!minCount || !maxCount) {
@@ -13,10 +13,10 @@ const validateInputCounts = (minCount: unknown, maxCount: unknown): boolean => {
         return false;
     }
     return true;
-}
+};
 
 const validateInputDates = (startDate: string, endDate: string): boolean => {
-    const dateFormat = 'YYYY-MM-DD';
+    const dateFormat = "YYYY-MM-DD";
     if(
         !validator.isDate(startDate, {format: dateFormat}) || 
         !validator.isDate(endDate, {format: dateFormat})) {
@@ -30,7 +30,7 @@ const validateInputDates = (startDate: string, endDate: string): boolean => {
         return false;
     }
     return true;
-}
+};
 
 export const validateInputs = (input: any) => {
     if(
@@ -39,4 +39,4 @@ export const validateInputs = (input: any) => {
         return false;
     }
     return true;
-}
+};

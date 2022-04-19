@@ -1,9 +1,10 @@
 import request from "supertest";
 
 import app from "../src/app";
-import { MyRecords } from '../src/models/myRecords';
+import { MyRecords } from "../src/models/myRecords";
 
-const mockingoose = require('mockingoose');
+// eslint-disable-next-line
+const mockingoose = require("mockingoose");
 
 describe("POST /api/fetchRecords", () => {
     it("should return 400 when no input is provided", () => {
@@ -76,8 +77,8 @@ describe("POST /api/fetchRecords", () => {
     it("should return 500 when aggregate query fails", async () => {
         expect.assertions(4);
 
-        const err = new Error('failed to query');
-        mockingoose(MyRecords).toReturn(err, 'aggregate');
+        const err = new Error("failed to query");
+        mockingoose(MyRecords).toReturn(err, "aggregate");
         const response = await request(app).post("/api/fetchRecords")
         .send({
             "startDate": "2020-01-21",
@@ -87,13 +88,13 @@ describe("POST /api/fetchRecords", () => {
         });
         expect(response.statusCode).toEqual(500);
         expect(response.body.code).toEqual(2);
-        expect(response.body.msg).toEqual('failed to fetch matching records');
+        expect(response.body.msg).toEqual("failed to fetch matching records");
         expect(response.body.records).toBeUndefined();
     });
 
     it("should return 200 when aggregate query returns zero records", async () => {
         expect.assertions(4);
-        mockingoose(MyRecords).toReturn([], 'aggregate');
+        mockingoose(MyRecords).toReturn([], "aggregate");
 
         const response = await request(app).post("/api/fetchRecords")
         .send({
@@ -104,7 +105,7 @@ describe("POST /api/fetchRecords", () => {
         });
         expect(response.statusCode).toEqual(200);
         expect(response.body.code).toEqual(1);
-        expect(response.body.msg).toEqual('no matching records found');
+        expect(response.body.msg).toEqual("no matching records found");
         expect(response.body.records).toBeUndefined();
     });    
     
@@ -118,7 +119,7 @@ describe("POST /api/fetchRecords", () => {
             }
         ];
       
-        mockingoose(MyRecords).toReturn(_doc, 'aggregate');
+        mockingoose(MyRecords).toReturn(_doc, "aggregate");
 
         const response = await request(app).post("/api/fetchRecords")
         .send({
@@ -129,7 +130,7 @@ describe("POST /api/fetchRecords", () => {
         });
         expect(response.statusCode).toEqual(200);
         expect(response.body.code).toEqual(0);
-        expect(response.body.msg).toEqual('success');
+        expect(response.body.msg).toEqual("success");
         expect(response.body.records.length).toEqual(1);
     });
 

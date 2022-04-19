@@ -12,9 +12,9 @@ const startServer = () => {
         console.log(`App is running at http://localhost:${app.get("port")} in ${app.get("env")} mode`);
         console.log("Press CTRL-C to stop\n");
     });
-}
+};
 
-console.log('connecting to mongodb instance');
+console.log("connecting to mongodb instance");
 mongoose.Promise = bluebird;
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true } )
 .then(() => { 
