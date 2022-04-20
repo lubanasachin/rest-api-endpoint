@@ -35,10 +35,18 @@ yarn start
 Finally, navigate to `http://localhost:3000/api/fetchRecords` using postman to filter the records based on given inputs!
 
 # Deploying the app
-In this section, I'll walk you through how to deploy this app to AWS.
 The app can be packaged as a docker image and the image can be published to AWS ECR.
 The image can be used to run a container in an EC2 instance.
 
+You can run the following command to publish the docker image to ECR
+
+```
+yarn buildDocker
+yarn tagDocker
+yarn pushDocker
+```
+
+You need AWS access credentials to make the above command work.
 
 ![image](https://github.com/lubanasachin/rest-api-endpoint/blob/main/assets/api-example.png)
 
@@ -59,6 +67,8 @@ The full folder structure of this app is explained below:
 | **src/models**           | Defines Mongoose schemas that will be used in storing and retrieving data from MongoDB        |
 | **src**/server.ts        | Entry point to your express app                                                               |
 | **test**                 | Contains tests                                                                                |
+| **scripts**              | Contains shell script to build, run and deploy docker images                                  |
+| **assets**               | Contains images/documents for application                                                     |
 | jest.config.js           | Used to configure Jest running tests written in TypeScript                                    |
 | package.json             | File that contains dependencies list as well as scripts                                       |
 | tsconfig.json            | Settings for compiling code written in TypeScript                                             |
