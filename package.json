@@ -1,14 +1,20 @@
 {
   "name": "rest-api-endpoint",
   "version": "1.0.0",
-  "private": true,
+  "private": true,  
   "scripts": {
-    "build": "npm run build-ts && npm run lint",
-    "build-ts": "tsc",
-    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
-    "serve": "NODE_ENV=production node dist/server.js",
-    "start": "npm run serve",
-    "test": "jest --forceExit --coverage --verbose"
+    "clean": "rm -rf dist/ && rm -rf coverage/ && rm -rf node_modules/",
+    "copy-env": "cp .env ./dist/",
+    "build": "yarn clean && yarn build-ts && yarn copy-env",
+    "build-ts": "tsc --build",
+    "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet",
+    "start": "node dist/server.js",
+    "test": "jest --forceExit --coverage --verbose",
+    "buildDockerLocal": "./scripts/build_docker_local.sh",    
+    "buildDocker": "./scripts/build_docker.sh",
+    "tagDocker": "./scripts/tag_docker.sh",
+    "pushDocker": "./scripts/push_docker.sh",
+    "publishDocker": "yarn tagDocker && yarn pushDocker"
   },
   "dependencies": {
     "async": "^3.1.0",

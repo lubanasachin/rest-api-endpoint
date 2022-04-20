@@ -1,0 +1,40 @@
+version: 0.2
+
+env:
+  variables:
+    CI: true
+    LOG_LEVEL: 'error'
+    APPLICATION_NAME: 'test-sachin'
+    NODE_ENV: 'production'
+    NODE_OPTIONS: '--max_old_space_size=2048'
+    CODECLIMATE_VERSION: '0.8.0'
+  shell: bash
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+      python: 3.8
+    commands:
+      - yarn install --frozen-lockfile
+
+  pre_build:
+    commands:
+      - yarn clean
+      - yarn build
+      - yarn lint
+      - yarn test
+
+  build:
+    commands:
+      - ASSUMED_ROLE=$(aws sts assume-role --role-arn arn:aws:iam::${AWS_ACCOUNT_NUMBER}:role/choco-codepipeline-cloudformation-role --role-session-name "RoleSession1" )
+      - AWS_ACCESS_KEY_ID=YOUR-AWS-ACCESS-KEY-ID
+      - AWS_SECRET_ACCESS_KEY=YOUR-AWS-SECRET-ACCESS-KEY
+      - AWS_SESSION_TOKEN=YOUR-AWS-SESSION-TOKEN
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_NUMBER.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - yarn buildDocker
+      - yarn publishDocker
+      

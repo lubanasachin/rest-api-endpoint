@@ -1,14 +1,8 @@
-import fs from "fs";
 import dotenv from "dotenv";
 
 import logger from "./logger";
 
-if (!fs.existsSync(".env")) {
-    logger.error("Unable to find .env file");
-    process.exit(1);
-}
-
-dotenv.config({ path: ".env" });
+dotenv.config({ path: __dirname+"/../.env" });
 
 const prod = process.env.NODE_ENV === "production";
 
