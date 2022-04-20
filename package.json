@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "rm -rf dist/ && rm -rf coverage/ && rm -rf node_modules/",
     "copy-env": "cp .env ./dist/",
-    "build": "yarn clean && yarn build-ts && yarn copy-env",
+    "build": "yarn build-ts && yarn copy-env",
     "build-ts": "tsc --build",
     "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet",
     "start": "node dist/server.js",
