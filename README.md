@@ -3,7 +3,6 @@ NodeJs REST API endpoint
 
 The main purpose of this repository is to show a working Node.js API Server with an api to fetch records from MongoDb collection based on given input filters.
 
-
 # Table of contents:
 
 - [Getting started](#getting-started)
@@ -28,6 +27,7 @@ yarn install
 
 - Build and run the project
 ```
+yarn clean
 yarn build
 yarn start
 ```
@@ -35,8 +35,13 @@ yarn start
 Finally, navigate to `http://localhost:3000/api/fetchRecords` using postman to filter the records based on given inputs!
 
 # Deploying the app
-There are many ways to deploy an Node app, and in general, nothing about the deployment process changes because you're using TypeScript.
 In this section, I'll walk you through how to deploy this app to AWS.
+The app can be packaged as a docker image and the image can be published to AWS ECR.
+The image can be used to run a container in an EC2 instance.
+
+
+![image](https://github.com/lubanasachin/rest-api-endpoint/blob/main/assets/api-example.png)
+
 
 # Project Structure
 
